@@ -17,8 +17,8 @@ public class Note {
     }
 
     /**
-     * Checks if the current note has a valid title, body and date.
-     * @throws InvalidNoteException when either the notes title, body or date is invalid.
+     * Checks if the current note has a valid title and body.
+     * @throws InvalidNoteException when either the notes title or body is invalid.
      */
     public void checkNote() throws InvalidNoteException {
         if (title.isEmpty() || body.isEmpty()) {
@@ -27,7 +27,7 @@ public class Note {
     }
 
     /**
-     * Checks if creationDae is null, if it is, sets the creationDate property to a new LocalDate.
+     * Checks if creationDate is null. If it is, sets the creationDate property to new date.
      * @param creationDate the current creation date in yyyy-mm-dd format.
      */
     public void setCreationDate(LocalDate creationDate) {
