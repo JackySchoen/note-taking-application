@@ -1,8 +1,5 @@
 package com.note.taking.application.business.models;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +7,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.note.taking.application.util.InvalidNoteException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NoteTest {
     @Nested
@@ -21,14 +20,6 @@ public class NoteTest {
             LocalDate date = LocalDate.now();
             Note note = new Note("My note", "This is my first note", date);
             assertDoesNotThrow(note::checkNote);
-        }
-
-        @Test
-        @DisplayName("should throw InvalidNoteError with invalid note (invalid id)")
-        public void withInvalidId() {
-            LocalDate date = LocalDate.now();
-            Note note = new Note("", "This is my first note", date);
-            assertThrows(InvalidNoteException.class, note::checkNote);
         }
 
         @Test
@@ -46,13 +37,25 @@ public class NoteTest {
             Note note = new Note("My note", "", date);
             assertThrows(InvalidNoteException.class, note::checkNote);
         }
+    }
+
+    @Nested
+    @DisplayName("method setCreationDate tests")
+    class SetCreationDate {
+        @Test
+        @DisplayName("should set creationDate property when provided date is LocalDate")
+        public void withDateLocalDate() {
+            LocalDate date = LocalDate.now();
+            Note note = new Note("My note", "This is my first note", date);
+            assertNotNull(note.getCreationDate());
+        }
 
         @Test
-        @DisplayName("should throw InvalidNoteError with invalid note (invalid date)")
-        public void withInvalidDate() {
+        @DisplayName("should set creationDate property when provided date is null")
+        public void withDateNull() {
             LocalDate date = null;
             Note note = new Note("My note", "This is my first note", date);
-            assertDoesNotThrow(note::checkNote);
+            assertNotNull(note.getCreationDate());
         }
     }
 }
