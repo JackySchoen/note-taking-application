@@ -51,7 +51,7 @@ public class NoteTest {
         }
 
         @Test
-        @DisplayName("should set creationDate property when provided date is null")
+        @DisplayName("should set creationDate property to a new date when provided date is null")
         public void withDateNull() {
             LocalDate date = null;
             Note note = new Note("My note", "This is my first note", date);
