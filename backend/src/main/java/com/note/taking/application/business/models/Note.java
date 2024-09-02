@@ -27,7 +27,7 @@ public class Note {
     }
 
     /**
-     * Checks if creationDate is null. If it is, sets the creationDate property to new date.
+     * Checks if creationDate is null. If it is, sets the creationDate property to new date. Otherwise, sets creationDate property to provided creationDate argument.
      * @param creationDate the current creation date in yyyy-mm-dd format.
      */
     public void setCreationDate(LocalDate creationDate) {
