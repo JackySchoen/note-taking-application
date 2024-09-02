@@ -23,7 +23,7 @@ public class NoteTest {
         }
 
         @Test
-        @DisplayName("should throw InvalidNoteError with invalid note (invalid title)")
+        @DisplayName("should throw InvalidNoteException with invalid note (invalid title)")
         public void withInvalidTitle() {
             LocalDate date = LocalDate.now();
             Note note = new Note("", "This is my first note", date);
@@ -31,7 +31,7 @@ public class NoteTest {
         }
 
         @Test
-        @DisplayName("should throw InvalidNoteError with invalid note (invalid body)")
+        @DisplayName("should throw InvalidNoteException with invalid note (invalid body)")
         public void withInvalidBody() {
             LocalDate date = LocalDate.now();
             Note note = new Note("My note", "", date);
@@ -44,7 +44,7 @@ public class NoteTest {
     class SetCreationDate {
         @Test
         @DisplayName("should set creationDate property when provided date is LocalDate")
-        public void withDateLocalDate() {
+        public void withLocalDate() {
             LocalDate date = LocalDate.now();
             Note note = new Note("My note", "This is my first note", date);
             assertNotNull(note.getCreationDate());
