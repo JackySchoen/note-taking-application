@@ -2,6 +2,7 @@ package com.note.taking.application.business.models;
 
 import java.time.LocalDate;
 
+import com.note.taking.application.data.entities.NoteEntity;
 import com.note.taking.application.util.InvalidNoteException;
 
 public class Note {
@@ -14,6 +15,13 @@ public class Note {
         this.title = title;
         this.body = body;
         setCreationDate(creationDate);
+    }
+
+    public Note(NoteEntity noteEntity) {
+        this.id = noteEntity.getId();
+        this.title = noteEntity.getTitle();
+        this.body = noteEntity.getBody();
+        this.creationDate = noteEntity.getCreationDate();
     }
 
     /**
