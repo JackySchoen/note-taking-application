@@ -73,7 +73,7 @@ public class NoteServiceTest {
         }
 
         @Test
-        @DisplayName("should throw NoteNotFoundException when no note is associated with provided id")
+        @DisplayName("should throw NoteNotFoundException when no note is found while using provided id")
         public void withInvalidId() {
             int id = 0;
             when(noteRepositoryMock.findById(id)).thenReturn(Optional.empty());

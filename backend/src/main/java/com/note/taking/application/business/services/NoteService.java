@@ -30,7 +30,7 @@ public class NoteService {
     /**
      * Gets an existing note from storage by its id.
      * @param id the id of the note you want to get from storage.
-     * @return the note if one is found by the provided id.
+     * @return the note if one is found by using the provided id.
      * @throws NoteNotFoundException when no note is found by using the provided id.
      */
     public Note getNoteById(int id) throws NoteNotFoundException {
