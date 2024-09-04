@@ -26,4 +26,36 @@ public class NoteEntity {
         this.body = note.getBody();
         this.creationDate = note.getCreationDate();
     }
+
+    /**
+     * Gets the id of the note entity.
+     * @return the id of the note entity.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Gets the title of the note entity.
+     * @return the title of the note entity.
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Gets the body of the note entity.
+     * @return the body of the note entity.
+     */
+    public String getBody() {
+        return body;
+    }
+
+    /**
+     * Gets the creation date of the note entity.
+     * @return the creation date of the note entity.
+     */
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
 }
