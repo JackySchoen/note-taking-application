@@ -77,7 +77,6 @@ public class NoteServiceTest {
         public void withInvalidId() {
             int id = 0;
             Note note = new Note("My note", "This is my note", null);
-            NoteEntity noteEntity = new NoteEntity(note);
             when(noteRepositoryMock.findById(id)).thenReturn(Optional.empty());
             assertThrows(NoteNotFoundException.class, () -> noteService.getNoteById(id));
         }
