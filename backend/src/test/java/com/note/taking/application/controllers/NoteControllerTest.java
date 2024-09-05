@@ -19,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,7 +39,6 @@ public class NoteControllerTest {
         @DisplayName("should return ResponseEntity with status OK when provided with valid note")
         public void withValidNote() {
             Note note = new Note("My note", "This is my note", null);
-            verify(noteRepositoryMock, times(0)).save(any(NoteEntity.class));
             ResponseEntity<String> response = noteController.saveNote(note);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
@@ -79,12 +78,12 @@ public class NoteControllerTest {
         }
 
         @Test
-        @DisplayName("should return ResponseEntity with status BAD REQUEST when provided with invalid id")
+        @DisplayName("should return ResponseEntity with status NOT FOUND when provided with invalid id")
         public void withInvalidId() {
             int id = 0;
             doThrow(InvalidNoteException.class).when(noteServiceMock).getNoteById(id);
             ResponseEntity<?> response = noteController.getNoteById(id);
-            assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+            assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         }
     }
 }
