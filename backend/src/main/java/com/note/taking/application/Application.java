@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
     /**
-     * Runs the Spring Boot application
+     * Runs the Spring Boot application.
      *
      * @param args the application arguments.
      */

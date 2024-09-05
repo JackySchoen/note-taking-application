@@ -4,6 +4,7 @@ import com.note.taking.application.business.models.Note;
 import com.note.taking.application.business.services.NoteService;
 import com.note.taking.application.data.entities.NoteEntity;
 import com.note.taking.application.data.repositories.NoteRepository;
+import com.note.taking.application.util.InvalidIdException;
 import com.note.taking.application.util.InvalidNoteException;
 import com.note.taking.application.util.NoteNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -85,6 +86,15 @@ public class NoteControllerTest {
             doThrow(NoteNotFoundException.class).when(noteServiceMock).getNoteById(id);
             ResponseEntity<?> response = noteController.getNoteById(id);
             assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        }
+
+        @Test
+        @DisplayName("should return ResponseEntity with status BAD REQUEST when provided with invalid id")
+        public void withInvalidIdBelowZero() {
+            int id = -1;
+            doThrow(InvalidIdException.class).when(noteServiceMock).getNoteById(id);
+            ResponseEntity<?> response = noteController.getNoteById(id);
+            assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         }
     }
 }
