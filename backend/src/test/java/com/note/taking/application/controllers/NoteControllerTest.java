@@ -5,6 +5,7 @@ import com.note.taking.application.business.services.NoteService;
 import com.note.taking.application.data.entities.NoteEntity;
 import com.note.taking.application.data.repositories.NoteRepository;
 import com.note.taking.application.util.InvalidNoteException;
+import com.note.taking.application.util.NoteNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -81,7 +82,7 @@ public class NoteControllerTest {
         @DisplayName("should return ResponseEntity with status NOT FOUND when provided with invalid id")
         public void withInvalidId() {
             int id = 0;
-            doThrow(InvalidNoteException.class).when(noteServiceMock).getNoteById(id);
+            doThrow(NoteNotFoundException.class).when(noteServiceMock).getNoteById(id);
             ResponseEntity<?> response = noteController.getNoteById(id);
             assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         }
