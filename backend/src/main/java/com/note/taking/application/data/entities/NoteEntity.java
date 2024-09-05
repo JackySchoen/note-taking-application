@@ -27,6 +27,13 @@ public class NoteEntity {
         this.creationDate = note.getCreationDate();
     }
 
+    public NoteEntity(int id, String title, String body, LocalDate creationDate) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.creationDate = creationDate;
+    }
+
     /**
      * Gets the id of the note entity.
      * @return the id of the note entity.
