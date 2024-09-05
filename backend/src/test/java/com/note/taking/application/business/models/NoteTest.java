@@ -1,12 +1,11 @@
 package com.note.taking.application.business.models;
 
-import java.time.LocalDate;
-
+import com.note.taking.application.util.InvalidNoteException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.note.taking.application.util.InvalidNoteException;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +40,7 @@ public class NoteTest {
 
     @Nested
     @DisplayName("method setCreationDate tests")
-    class SetCreationDate {
+    public class SetCreationDate {
         @Test
         @DisplayName("should set creationDate property when provided date is LocalDate")
         public void withLocalDate() {

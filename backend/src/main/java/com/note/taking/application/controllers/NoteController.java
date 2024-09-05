@@ -1,14 +1,15 @@
 package com.note.taking.application.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.note.taking.application.business.models.Note;
 import com.note.taking.application.business.services.NoteService;
+import com.note.taking.application.util.InvalidIdException;
+import com.note.taking.application.util.NoteNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+// TODO look into adding @ControllerAdvice
 
 @RestController()
 @RequestMapping("/notes")
@@ -18,6 +19,7 @@ public class NoteController {
 
     /**
      * Saves a new note to storage.
+     *
      * @param note the newly created note.
      * @return a ResponseEntity with a fitting response status and message.
      */
@@ -28,6 +30,24 @@ public class NoteController {
             return ResponseEntity.ok().body("note saved successfully");
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    /**
+     * Gets an existing note from storage by its id.
+     *
+     * @param id the id of the note you want to get from storage.
+     * @return a ResponseEntity with a fitting response status and message.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getNoteById(@PathVariable int id) {
+        try {
+            Note note = noteService.getNoteById(id);
+            return ResponseEntity.ok().body(note);
+        } catch (NoteNotFoundException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (InvalidIdException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
