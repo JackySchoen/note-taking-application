@@ -5,7 +5,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.note.taking.application.business.models.Note;
 import com.note.taking.application.data.entities.NoteEntity;
 import com.note.taking.application.data.repositories.NoteRepository;
+
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -46,8 +48,8 @@ public class NoteIntegrationTest {
             Note note = new Note("My note", "This is my note", null);
             String noteAsJSON = objectMapper.writeValueAsString(note);
             mockMvc.perform(MockMvcRequestBuilders.post("/notes")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(noteAsJSON))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(noteAsJSON))
                     .andExpect(status().isOk())
                     .andExpect(content().string("note saved successfully"));
         }
@@ -58,8 +60,8 @@ public class NoteIntegrationTest {
             Note note = new Note("", "This is my note", null);
             String noteAsJSON = objectMapper.writeValueAsString(note);
             mockMvc.perform(MockMvcRequestBuilders.post("/notes")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(noteAsJSON))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(noteAsJSON))
                     .andExpect(status().isBadRequest())
                     .andExpect(content().string("note title or body cannot be empty"));
         }
@@ -70,8 +72,8 @@ public class NoteIntegrationTest {
             Note note = new Note("My note", "", null);
             String noteAsJSON = objectMapper.writeValueAsString(note);
             mockMvc.perform(MockMvcRequestBuilders.post("/notes")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(noteAsJSON))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(noteAsJSON))
                     .andExpect(status().isBadRequest())
                     .andExpect(content().string("note title or body cannot be empty"));
         }
@@ -105,6 +107,17 @@ public class NoteIntegrationTest {
             mockMvc.perform(MockMvcRequestBuilders.get("/notes/" + id))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string(containsString("could not be found")));
+        }
+    }
+
+    @Nested
+    @DisplayName("GET all notes route integration tests")
+    public class GetAllNotesRouteTests {
+        @Test
+        @DisplayName("should get a list of notes when notes are present in storage")
+        public void withNotesInStorage() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders.get("/notes"))
+                    .andExpect(status().isOk());
         }
     }
 }

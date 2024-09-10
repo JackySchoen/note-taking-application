@@ -4,6 +4,9 @@ import com.note.taking.application.business.models.Note;
 import com.note.taking.application.business.services.NoteService;
 import com.note.taking.application.util.InvalidIdException;
 import com.note.taking.application.util.NoteNotFoundException;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +51,21 @@ public class NoteController {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
         } catch (InvalidIdException exception) {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Gets all notes from storage.
+     * 
+     * @return all notes from storage.
+     */
+    @GetMapping
+    public ResponseEntity<?> getAllNotes() {
+        try {
+            List<Note> notes = noteService.getAllNotes();
+            return ResponseEntity.ok().body(notes);
+        } catch (NoteNotFoundException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }

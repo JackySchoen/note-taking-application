@@ -15,6 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -79,6 +82,36 @@ public class NoteServiceTest {
             int id = 0;
             when(noteRepositoryMock.findById(id)).thenReturn(Optional.empty());
             assertThrows(NoteNotFoundException.class, () -> noteService.getNoteById(id));
+        }
+    }
+
+    @Nested
+    @DisplayName("method getAllNotes tests")
+    public class GetAllNotes {
+        @Test
+        @DisplayName("should not throw NoteNotFoundException and return a list of notes when notes are present in storage")
+        public void withNotesInStorage() {
+            when(noteRepositoryMock.findAll()).thenReturn(getNoteEntities());
+            assertDoesNotThrow(() -> noteService.getAllNotes());
+        }
+
+        /**
+         * Gets a list of note entities.
+         * 
+         * @return a list of note entities.
+         */
+        private List<NoteEntity> getNoteEntities() {
+            List<NoteEntity> noteEntities = new ArrayList<NoteEntity>();
+            noteEntities.add(new NoteEntity(1, "My first note", "Hello ", LocalDate.now()));
+            noteEntities.add(new NoteEntity(2, "My second note", "world!", LocalDate.now()));
+            return noteEntities;
+        }
+
+        @Test
+        @DisplayName("should throw NoteNotFoundException when no notes are present in storage")
+        public void withoutNotesInStorage() {
+            when(noteRepositoryMock.findAll()).thenReturn(new ArrayList<NoteEntity>());
+            assertThrows(NoteNotFoundException.class, () -> noteService.getAllNotes());
         }
     }
 }
